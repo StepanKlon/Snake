@@ -29,11 +29,14 @@ namespace Sneak
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pbCanvas = new System.Windows.Forms.PictureBox();
             this.ScoreLabel = new System.Windows.Forms.Label();
             this.ScoreNum = new System.Windows.Forms.Label();
             this.BestScoreLabel = new System.Windows.Forms.Label();
             this.BestScoreNum = new System.Windows.Forms.Label();
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.GameOverLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,11 +94,24 @@ namespace Sneak
             this.BestScoreNum.TabIndex = 4;
             this.BestScoreNum.Text = "0";
             // 
+            // GameOverLabel
+            // 
+            this.GameOverLabel.AutoSize = true;
+            this.GameOverLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.GameOverLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.GameOverLabel.Location = new System.Drawing.Point(243, 256);
+            this.GameOverLabel.Name = "GameOverLabel";
+            this.GameOverLabel.Size = new System.Drawing.Size(148, 32);
+            this.GameOverLabel.TabIndex = 5;
+            this.GameOverLabel.Text = "Game Over!";
+            this.GameOverLabel.Visible = false;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(664, 511);
+            this.Controls.Add(this.GameOverLabel);
             this.Controls.Add(this.BestScoreNum);
             this.Controls.Add(this.BestScoreLabel);
             this.Controls.Add(this.ScoreNum);
@@ -118,5 +134,7 @@ namespace Sneak
         private System.Windows.Forms.Label ScoreNum;
         private System.Windows.Forms.Label BestScoreLabel;
         private System.Windows.Forms.Label BestScoreNum;
+        private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Label GameOverLabel;
     }
 }

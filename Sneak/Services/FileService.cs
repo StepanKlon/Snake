@@ -27,13 +27,10 @@ namespace Sneak.Services
             return scoreList.Max();
         }
 
-        public void WriteTheHighestScore(int score)
+        public void WriteScore()
         {
-            if (score > GetTheHighestScore())
-            {
                 var countRow = File.ReadAllLines(FilePath).Length;
-                File.WriteAllText(FilePath,$"{countRow + 1}.{score}");
-            }
+                File.WriteAllText(FilePath,$"{countRow + 1}.{Settings.score}\n");
         }
     }
 }

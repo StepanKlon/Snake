@@ -8,5 +8,9 @@ namespace Sneak
 {
     class Head : Entity
     {
+        public Head(Location location) : base(location)
+        {
+            Location = location;
+        }
     }
 }

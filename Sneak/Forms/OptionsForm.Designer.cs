@@ -34,6 +34,7 @@ namespace Sneak
             this.SpeedCheckListBox = new System.Windows.Forms.CheckedListBox();
             this.ColorCheckedBoxList = new System.Windows.Forms.CheckedListBox();
             this.BackButton = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Speed
@@ -88,7 +89,7 @@ namespace Sneak
             // 
             this.BackButton.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.BackButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.BackButton.Location = new System.Drawing.Point(272, 313);
+            this.BackButton.Location = new System.Drawing.Point(146, 310);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(120, 49);
             this.BackButton.TabIndex = 5;
@@ -96,12 +97,25 @@ namespace Sneak
             this.BackButton.UseVisualStyleBackColor = false;
             this.BackButton.Click += new System.EventHandler(this.GetBack);
             // 
+            // StartButton
+            // 
+            this.StartButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.StartButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.StartButton.Location = new System.Drawing.Point(272, 310);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(120, 49);
+            this.StartButton.TabIndex = 6;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = false;
+            this.StartButton.Click += new System.EventHandler(this.GetStart);
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(664, 511);
+            this.Controls.Add(this.StartButton);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.ColorCheckedBoxList);
             this.Controls.Add(this.SpeedCheckListBox);
@@ -121,5 +135,6 @@ namespace Sneak
         private System.Windows.Forms.CheckedListBox SpeedCheckListBox;
         private System.Windows.Forms.CheckedListBox ColorCheckedBoxList;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Button StartButton;
     }
 }

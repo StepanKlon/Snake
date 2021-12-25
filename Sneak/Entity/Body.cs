@@ -8,5 +8,9 @@ namespace Sneak
 {
     class Body : Entity
     {
+        public Body(Location location) : base(location)
+        {
+            Location = location;
+        }
     }
 }

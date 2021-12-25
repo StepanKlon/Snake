@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Sneak
 {
-    class Food : Entity 
+    class Food : Entity
     {
+        public Food(Location location) : base(location)
+        {
+            Location = location;
+        }
     }
 }

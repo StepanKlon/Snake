@@ -9,6 +9,6 @@ namespace Sneak.Services
     interface IDataService
     {
         public int GetTheHighestScore();
-        public void WriteTheHighestScore(int score);
+        public void WriteScore();
     }
 }

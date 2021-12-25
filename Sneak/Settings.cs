@@ -14,23 +14,21 @@ namespace Sneak
         RIGHT,
         LEFT
     }
-    class Settings
+    static class Settings
     {
-        public IDataService DataService { get; set; }
-        public static int Speed { get; set; }
-        public static int Score { get; set; }
-        public static int TopScore { get; set; }
-        public static Movement Movement { get; set; }
-        public static int Size { get; set; }
+        public static int speed = 20;
+        public static int points = 100;
+        public static int score = 0;
+        public static int topScore = findTopScore();
+        public static Movement movement = Movement.DOWN;
+        public static int size = 16;
+        public static string color = "Blue";
+        public static bool fail = false;
 
-        public Settings(int speed, IDataService dataService)
+        private static int findTopScore()
         {
-            DataService = dataService;
-            Speed = speed;
-            Score = 0;
-            TopScore = DataService.GetTheHighestScore();
-            Movement = Movement.DOWN;
-            Size = 16;
+            IDataService service = new FileService();
+            return service.GetTheHighestScore();
         }
     }
 }

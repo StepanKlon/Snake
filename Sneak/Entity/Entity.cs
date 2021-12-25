@@ -9,6 +9,11 @@ namespace Sneak
     abstract class Entity
     {
         public Location Location { get; set; }
-        public string Color { get; set; }
+
+        protected Entity(Location location)
+        {
+            Location = location;
+        }
     }
+
 }
