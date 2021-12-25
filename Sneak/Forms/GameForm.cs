@@ -10,14 +10,24 @@ using System.Windows.Forms;
 
 namespace Sneak
 {
-    public partial class OptionsForm : Form
+    public partial class GameForm : Form
     {
-        public OptionsForm()
+        public GameForm()
         {
             InitializeComponent();
         }
 
-        private void GetBack(object sender, EventArgs e)
+        private void KeyIsDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void KeyIsUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void UpdateGraphics(object sender, PaintEventArgs e)
         {
 
         }

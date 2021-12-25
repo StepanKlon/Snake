@@ -19,17 +19,20 @@ namespace Sneak
 
         private void GetOptions(object sender, EventArgs e)
         {
-
+            OptionsForm options = new OptionsForm();
+            options.Show();
+            this.Hide();
         }
 
         private void GetStart(object sender, EventArgs e)
         {
-
+            GameForm game = new GameForm();
+            game.Show();
         }
 
         private void GetEnd(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }
