@@ -25,5 +25,9 @@ namespace Sneak
             }
             return (bool)KeyTable[key];
         }
+        public static void ClearKeys()
+        {
+            KeyTable.Clear();
+        }
     }
 }

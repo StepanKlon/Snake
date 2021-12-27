@@ -21,16 +21,13 @@ namespace Sneak
         {
             DataService = new FileService();
             InitializeComponent();
-            gameTimer.Interval = 1000 / Settings.speed;
-            gameTimer.Tick += UpdateScreen;
-            gameTimer.Start();
-            StartGame();
         }
 
         private void StartGame()
         {
             GameOverLabel.Visible = false;
             ScoreNum.Text = "0";
+            Settings.topScore = DataService.GetTheHighestScore();
             BestScoreNum.Text = Settings.topScore.ToString();
             Sneak = new List<Entity>();
             Head head = new Head(new Location { X = 5, Y = 5 });
@@ -43,7 +40,14 @@ namespace Sneak
             var maxWidth = pbCanvas.Size.Width / Settings.size;
             var maxHeight = pbCanvas.Size.Height / Settings.size;
             Random rnd = new Random();
-            Food = new Food(new Location { X = rnd.Next(0,maxWidth), Y = rnd.Next(0,maxHeight) });
+            if (Sneak.Count % 5 == 0)
+            {
+                Food = new Food(new Location { X = rnd.Next(1, maxWidth - 1), Y = rnd.Next(1, maxHeight - 1) });
+            }
+            else
+            {
+                Food = new Food(new Location { X = rnd.Next(0, maxWidth), Y = rnd.Next(0, maxHeight) });
+            }
         }
 
         private void UpdateScreen(object sender, EventArgs e)
@@ -54,8 +58,10 @@ namespace Sneak
                 {
                     DataService.WriteScore();
                     InitialForm init = new InitialForm();
-                    init.Show();
+                    Settings.score = 0;
+                    gameTimer.Stop();
                     this.Hide();
+                    init.Show();
                 }
             }
             else
@@ -76,15 +82,79 @@ namespace Sneak
                 {
                     Settings.movement = Movement.DOWN;
                 }
-                Move();
+                GetMoving();
             }
             pbCanvas.Invalidate();
         }
 
-        private void Move()
+        private void GetMoving()
         {
-            // doplnit move metodu, eat, die metodu
-            throw new NotImplementedException();
+            for (int i = Sneak.Count - 1; i >= 0; i--)
+            {
+                if (i == 0)
+                {
+                    switch (Settings.movement)
+                    {
+                        case Movement.UP:
+                            Sneak[0].Location.Y--;
+                            break;
+                        case Movement.DOWN:
+                            Sneak[0].Location.Y++;
+                            break;
+                        case Movement.RIGHT:
+                            Sneak[0].Location.X++;
+                            break;
+                        case Movement.LEFT:
+                            Sneak[0].Location.X--;
+                            break;
+                    }
+                    for (int j = 1; j < Sneak.Count - 1; j++)
+                    {
+                        if (Sneak[0].Location.X == Sneak[j].Location.X && Sneak[0].Location.Y == Sneak[j].Location.Y)
+                            Die();
+                    }
+                    if (Sneak[0].Location.X == Food.Location.X && Sneak[0].Location.Y == Food.Location.Y)
+                    {
+                        Eat();
+                    }else if(Sneak.Count % 5 == 0)
+                    {
+                        var possibleX = Math.Abs(Sneak[0].Location.X - Food.Location.X);
+                        var possibleY = Math.Abs(Sneak[0].Location.Y - Food.Location.Y);
+                        if (possibleX <= 1 && possibleX >= 0 && possibleY <= 1 && possibleY >= 0)
+                            Eat();
+                    }
+                    var maxWidth = pbCanvas.Size.Width / Settings.size;
+                    var maxHeight = pbCanvas.Size.Height / Settings.size;
+                    if (Sneak[0].Location.X > maxWidth || Sneak[0].Location.X < 0 || Sneak[0].Location.Y > maxHeight || Sneak[0].Location.Y < 0)
+                        Die();
+                }
+                else
+                {
+                    Sneak[i].Location.X = Sneak[i - 1].Location.X;
+                    Sneak[i].Location.Y = Sneak[i - 1].Location.Y;
+                }
+            }          
+        }
+
+        private void Eat()
+        {
+            if (Sneak.Count % 5 == 0)
+            {
+                Settings.score += Settings.extraPoints;
+            }
+            else
+            {
+                Settings.score += Settings.points;
+            }
+            Sneak.Add(new Body(new Location { X = Sneak[Sneak.Count - 1].Location.X, Y = Sneak[Sneak.Count - 1].Location.Y }));
+            ScoreNum.Text = Settings.score.ToString();
+            CreateFood();
+
+        }
+
+        private void Die()
+        {
+            Settings.fail = true;
         }
 
         private void KeyIsDown(object sender, KeyEventArgs e)
@@ -133,17 +203,39 @@ namespace Sneak
                         Settings.size,
                         Settings.size));
                 }
-                canvas.FillEllipse(Brushes.OrangeRed,
+                if (Sneak.Count % 5 == 0)
+                {
+                    canvas.FillEllipse(Brushes.Gold,
+                    new Rectangle(Food.Location.X * Settings.size,
+                    Food.Location.Y * Settings.size,
+                    Settings.size * 2,
+                    Settings.size * 2));
+                }
+                else
+                {
+                    canvas.FillEllipse(Brushes.OrangeRed,
                     new Rectangle(Food.Location.X * Settings.size,
                     Food.Location.Y * Settings.size,
                     Settings.size,
                     Settings.size));
+                }
             }
             else
             {
-                GameOverLabel.Text = $"Game over! Your score is {Settings.score}";
+                GameOverLabel.Text = $"Game over! Your score is {Settings.score}, press ENTER";
                 GameOverLabel.Visible = true;
             }
+        }
+
+        private void ShowGame(object sender, EventArgs e)
+        {
+            Input.ClearKeys();
+            Settings.fail = false;
+            Settings.movement = Movement.DOWN;
+            gameTimer.Interval = 1000 / Settings.speed;
+            gameTimer.Tick += UpdateScreen;
+            gameTimer.Start();
+            StartGame();
         }
     }
 }

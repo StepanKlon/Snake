@@ -99,7 +99,7 @@ namespace Sneak
             this.GameOverLabel.AutoSize = true;
             this.GameOverLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.GameOverLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.GameOverLabel.Location = new System.Drawing.Point(243, 256);
+            this.GameOverLabel.Location = new System.Drawing.Point(27, 252);
             this.GameOverLabel.Name = "GameOverLabel";
             this.GameOverLabel.Size = new System.Drawing.Size(148, 32);
             this.GameOverLabel.TabIndex = 5;
@@ -119,6 +119,7 @@ namespace Sneak
             this.Controls.Add(this.pbCanvas);
             this.Name = "GameForm";
             this.Text = "GameForm";
+            this.Shown += new System.EventHandler(this.ShowGame);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyIsUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();

@@ -13,24 +13,39 @@ namespace Sneak.Services
 
         public FileService()
         {
-            FilePath = "..\\Sneak\\Score.txt";
+            FilePath = "..\\..\\..\\Score.txt";
         }
 
         public int GetTheHighestScore()
         {
             var scoreList = new List<int>();
-            var lines = File.ReadAllLines(FilePath);
-            foreach (var line in lines)
+            try
             {
-                scoreList.Add(Int32.Parse(line.Split(".")[1]));
+                var lines = File.ReadAllLines(FilePath);
+                foreach (var line in lines)
+                {
+                    scoreList.Add(Int32.Parse(line.Split(".")[1]));
+                }
+                return scoreList.Max();
             }
-            return scoreList.Max();
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public void WriteScore()
         {
+            try
+            {
                 var countRow = File.ReadAllLines(FilePath).Length;
-                File.WriteAllText(FilePath,$"{countRow + 1}.{Settings.score}\n");
+                //File.WriteAllText(FilePath, $"{countRow + 1}.{Settings.score}\n");
+                File.AppendAllText(FilePath, $"{countRow + 1}.{Settings.score}\n");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("It is not possible to write into a file.");
+            }
         }
     }
 }

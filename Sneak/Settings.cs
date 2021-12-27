@@ -18,17 +18,12 @@ namespace Sneak
     {
         public static int speed = 20;
         public static int points = 100;
+        public static int extraPoints = 250;
         public static int score = 0;
-        public static int topScore = findTopScore();
+        public static int topScore = 0;
         public static Movement movement = Movement.DOWN;
         public static int size = 16;
         public static string color = "Blue";
         public static bool fail = false;
-
-        private static int findTopScore()
-        {
-            IDataService service = new FileService();
-            return service.GetTheHighestScore();
-        }
     }
 }

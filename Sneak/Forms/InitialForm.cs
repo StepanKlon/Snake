@@ -28,6 +28,8 @@ namespace Sneak
         {
             GameForm game = new GameForm();
             game.Show();
+            game.Activate();
+            this.Hide();
         }
 
         private void GetEnd(object sender, EventArgs e)
