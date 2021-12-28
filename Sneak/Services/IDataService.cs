@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sneak.Services
+namespace Snake.Services
 {
     interface IDataService
     {

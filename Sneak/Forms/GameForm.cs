@@ -1,4 +1,4 @@
-﻿using Sneak.Services;
+﻿using Snake.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sneak
+namespace Snake
 {
     public partial class GameForm : Form
     {
-        List<Entity> Sneak { get; set; }
+        List<Entity> Snake { get; set; }
         Entity Food { get; set; }
         OptionsForm OptionsForm { get; set; }
         IDataService DataService { get; set; }
@@ -29,9 +29,9 @@ namespace Sneak
             ScoreNum.Text = "0";
             Settings.topScore = DataService.GetTheHighestScore();
             BestScoreNum.Text = Settings.topScore.ToString();
-            Sneak = new List<Entity>();
+            Snake = new List<Entity>();
             Head head = new Head(new Location { X = 5, Y = 5 });
-            Sneak.Add(head);
+            Snake.Add(head);
             CreateFood();
         }
 
@@ -40,7 +40,7 @@ namespace Sneak
             var maxWidth = pbCanvas.Size.Width / Settings.size;
             var maxHeight = pbCanvas.Size.Height / Settings.size;
             Random rnd = new Random();
-            if (Sneak.Count % 5 == 0)
+            if (Snake.Count % 5 == 0)
             {
                 Food = new Food(new Location { X = rnd.Next(1, maxWidth - 1), Y = rnd.Next(1, maxHeight - 1) });
             }
@@ -89,56 +89,56 @@ namespace Sneak
 
         private void GetMoving()
         {
-            for (int i = Sneak.Count - 1; i >= 0; i--)
+            for (int i = Snake.Count - 1; i >= 0; i--)
             {
                 if (i == 0)
                 {
                     switch (Settings.movement)
                     {
                         case Movement.UP:
-                            Sneak[0].Location.Y--;
+                            Snake[0].Location.Y--;
                             break;
                         case Movement.DOWN:
-                            Sneak[0].Location.Y++;
+                            Snake[0].Location.Y++;
                             break;
                         case Movement.RIGHT:
-                            Sneak[0].Location.X++;
+                            Snake[0].Location.X++;
                             break;
                         case Movement.LEFT:
-                            Sneak[0].Location.X--;
+                            Snake[0].Location.X--;
                             break;
                     }
-                    for (int j = 1; j < Sneak.Count - 1; j++)
+                    for (int j = 1; j < Snake.Count - 1; j++)
                     {
-                        if (Sneak[0].Location.X == Sneak[j].Location.X && Sneak[0].Location.Y == Sneak[j].Location.Y)
+                        if (Snake[0].Location.X == Snake[j].Location.X && Snake[0].Location.Y == Snake[j].Location.Y)
                             Die();
                     }
-                    if (Sneak[0].Location.X == Food.Location.X && Sneak[0].Location.Y == Food.Location.Y)
+                    if (Snake[0].Location.X == Food.Location.X && Snake[0].Location.Y == Food.Location.Y)
                     {
                         Eat();
-                    }else if(Sneak.Count % 5 == 0)
+                    }else if(Snake.Count % 5 == 0)
                     {
-                        var possibleX = Math.Abs(Sneak[0].Location.X - Food.Location.X);
-                        var possibleY = Math.Abs(Sneak[0].Location.Y - Food.Location.Y);
+                        var possibleX = Math.Abs(Snake[0].Location.X - Food.Location.X);
+                        var possibleY = Math.Abs(Snake[0].Location.Y - Food.Location.Y);
                         if (possibleX <= 1 && possibleX >= 0 && possibleY <= 1 && possibleY >= 0)
                             Eat();
                     }
                     var maxWidth = pbCanvas.Size.Width / Settings.size;
                     var maxHeight = pbCanvas.Size.Height / Settings.size;
-                    if (Sneak[0].Location.X > maxWidth || Sneak[0].Location.X < 0 || Sneak[0].Location.Y > maxHeight || Sneak[0].Location.Y < 0)
+                    if (Snake[0].Location.X > maxWidth || Snake[0].Location.X < 0 || Snake[0].Location.Y > maxHeight || Snake[0].Location.Y < 0)
                         Die();
                 }
                 else
                 {
-                    Sneak[i].Location.X = Sneak[i - 1].Location.X;
-                    Sneak[i].Location.Y = Sneak[i - 1].Location.Y;
+                    Snake[i].Location.X = Snake[i - 1].Location.X;
+                    Snake[i].Location.Y = Snake[i - 1].Location.Y;
                 }
             }          
         }
 
         private void Eat()
         {
-            if (Sneak.Count % 5 == 0)
+            if (Snake.Count % 5 == 0)
             {
                 Settings.score += Settings.extraPoints;
             }
@@ -146,7 +146,7 @@ namespace Sneak
             {
                 Settings.score += Settings.points;
             }
-            Sneak.Add(new Body(new Location { X = Sneak[Sneak.Count - 1].Location.X, Y = Sneak[Sneak.Count - 1].Location.Y }));
+            Snake.Add(new Body(new Location { X = Snake[Snake.Count - 1].Location.X, Y = Snake[Snake.Count - 1].Location.Y }));
             ScoreNum.Text = Settings.score.ToString();
             CreateFood();
 
@@ -173,7 +173,7 @@ namespace Sneak
             if (!Settings.fail)
             {
                 Brush snakeColour;
-                for (int i = 0; i < Sneak.Count; i++)
+                for (int i = 0; i < Snake.Count; i++)
                 {
                     if (i==0)
                     {
@@ -198,12 +198,12 @@ namespace Sneak
                         }
                     }
                     canvas.FillEllipse(snakeColour,
-                        new Rectangle(Sneak[i].Location.X * Settings.size,
-                        Sneak[i].Location.Y * Settings.size,
+                        new Rectangle(Snake[i].Location.X * Settings.size,
+                        Snake[i].Location.Y * Settings.size,
                         Settings.size,
                         Settings.size));
                 }
-                if (Sneak.Count % 5 == 0)
+                if (Snake.Count % 5 == 0)
                 {
                     canvas.FillEllipse(Brushes.Gold,
                     new Rectangle(Food.Location.X * Settings.size,

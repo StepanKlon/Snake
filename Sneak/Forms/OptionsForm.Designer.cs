@@ -1,5 +1,5 @@
 ﻿
-namespace Sneak
+namespace Snake
 {
     partial class OptionsForm
     {

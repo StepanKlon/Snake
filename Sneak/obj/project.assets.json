@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Štěpán Klon\\Desktop\\projects\\Sneak\\Sneak\\Sneak.csproj",
-      "projectName": "Sneak",
-      "projectPath": "C:\\Users\\Štěpán Klon\\Desktop\\projects\\Sneak\\Sneak\\Sneak.csproj",
+      "projectUniqueName": "C:\\Users\\Štěpán Klon\\Desktop\\projects\\Sneak\\Sneak\\Snake.csproj",
+      "projectName": "Snake",
+      "projectPath": "C:\\Users\\Štěpán Klon\\Desktop\\projects\\Sneak\\Sneak\\Snake.csproj",
       "packagesPath": "C:\\Users\\Štěpán Klon\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Štěpán Klon\\Desktop\\projects\\Sneak\\Sneak\\obj\\",
       "projectStyle": "PackageReference",
