@@ -1,2 +1,2 @@
-# Sneak
-Sneak game in C# with using Windows Forms App
+# Snake
+Snake game in C# with using Windows Forms App
